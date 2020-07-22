@@ -4,29 +4,16 @@
 
 ### Jenkins Image using Dockerfile
 
-The Dockerfile is created from the `alpine:latest` linux image minimising the storage required to run the jenkins container. The image contains the docker cli to launch the docker containers in the following tasks. 
+The Dockerfile is created from the `alpine:latest` linux image minimising the storage required to run the jenkins container. The image contains the kubectl binary to launch the kubernetes resources. The files for authentication is copied in the image. You can create the custom image using the already provided image `riteshsoni296/jenkins_kubectl:v1` and paste the kubernetes authentication files i.e; client.crt,client.key and ca.crt.
 
-The dockerfile extract is as follows :
+The dockerfile extract to be as follows :
 
 ```
-FROM alpine:latest
-
-RUN apk --update add jenkins docker git openrc -X http://dl-cdn.alpinelinux.org/alpine/edge/community
-
-RUN rc-update add docker boot
-
-ARG http_port=8080
-
-ARG HOME=/var/lib/jenkins
-
-ENV JENKINS_HOME ${HOME}
-
-ENV USER jenkins
-
-EXPOSE ${http_port}
-
-CMD ["java","-jar","/usr/share/webapps/jenkins/jenkins.war"]
-
+FROM riteshsoni296/jenkins_kubectl:v1
+COPY client.crt client.key ca.crt config.template /root/.kube/
+EXPOSE 8080
+CMD /bin/sh -c "envsubst \"`env | awk -F = '{printf \" \\\\$%s\", \$1}'`\" < /root/.kube/config.template \
+    > /root/.kube/config  && java -jar /usr/share/webapps/jenkins/jenkins.war"
 ```
 
 The dockerfile should always start with `FROM` instruction. The FROM instruction specifies the Parent Image from which we are building. The `RUN` instruction is used to execute the shell commands during the build creation. The `ENV` instruction is used to set environment variables for the image. The `EXPOSE` instruction is used to perform Port Address Translation in the container i.e; exposing a service to the outside world. The `CMD` instructions are executed at the run time i.e during the container creation. 
@@ -38,7 +25,7 @@ The image can be easily created using  dockerfile using `docker build` command.
 mkdir /opt/jenkins
 cd /opt/jenkins
 
-# Create file name Dockerfile with the earlier mentioned steps
+# Create file name Dockerfile with the earlier mentioned steps and copy the files for cluster authentication.
 
 docker build -t jenkins:v1 /opt/jenkins/ --network=host
 ```
@@ -48,15 +35,31 @@ docker build -t jenkins:v1 /opt/jenkins/ --network=host
 */opt/jenkins* represents the directory that consists Dockerfile.
 
 
-Initialising **jenkins container** using image
+Initialising **jenkins container** using image on kubernetes cluster. The kubernetes configuration file for jenkins server will launch resources as  follows:
+
+*a. Namespace*
+
+    To launch all the resources in custom namespace
+ 
+*b. Service*
+  
+    To connect with the jenkins pods from outside world.
+    
+*c. PersistentVolumeClaim*
+
+    For persistentency of data in Jenkins Server pods to preserve the data in case of pod failure.
+
+*d. Deployment*
+
+    Deployment resource maintains and monitors the pods. It restarts the pods in case of fault-tolerance.
+ 
+The configuration file is present in the repository at 
 
 ```
- docker run -dit -v jenkins_data:/var/lib/jenkins -v /var/run/docker.sock:/var/run/docker.sock \
-         --name jenkins -p 8080:8080 riteshsoni296/jenkins:latest
+kubectl create -f jenkins_deployment.yml
 ```
 
-The jenkins container data directory `/var/lib/jenkins` is mounted on docker volume for data persistency during unavoidable circumstances.
-The **docker dameon socket** is mounted to enable docker cli from inside the jenkins container.
+The jenkins container data directory `/var/lib/jenkins` is mounted using PVC for data persistency during unavoidable circumstances.
 
 During the initialisation of jenkins server for the first time, the Jenkins server proides `secret key` in the console logs for the first time login.
 
