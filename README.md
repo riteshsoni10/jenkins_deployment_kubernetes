@@ -53,7 +53,7 @@ Initialising **jenkins container** using image on kubernetes cluster. The kubern
 
     Deployment resource maintains and monitors the pods. It restarts the pods in case of fault-tolerance.
  
-The configuration file is present in the repository at 
+The configuration file is present in the repository at `scripts` directory. 
 
 ```
 kubectl create -f jenkins_deployment.yml
