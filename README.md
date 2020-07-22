@@ -268,33 +268,6 @@ Steps to create the `code_test` job are as follows:
    
    - Click on Apply and Save
 
-
-### Job5 : Monitor the deployed Containers
-
-The job will be configured to run at at interval of minute, and check the availability of project containers. If the containers  are in stopped state, the Job will start the containers.
-
-Steps to create the `monitor_deployment_containers` job are as follows:
-
-1. Create a *New Item* at the left column in Jenkins Welcome page
-
-2. Configure *Job Name*
-
-3. Configure **Build Triggers**
-   
-   In build triggers, Enable the checkbox for `Build Periodically`. The job is to be scheduled at every minute i.e * * * * * , the cron expression for schedular.
-   
-<p align="center">
-  <img src="screenshots/monitor_deployment_containers.png" width="800" title="Build Triggers Schedular ">
-  <br>
-  <em>Fig 16.: Monitoring Job Build Trigger Schedular  </em>
-</p>  
-   
-4. Operations to be performed at **Build stage**
-  
-   From the **Add Build Step** drop-down, `Execute Shell` is selected to run the operations at build stage. The shell script checks for the containers with the exited status, if any deployment container is found it tries to start them. If in case, any error dring startup is found,then the script creates the new deployement container. The shell script can be found in the repository at location `scripts/monitor_deployment_containers_build_stage.sh`
-   
- 5. Click on Apply and Save
- 
  
 ### Build Pipeline Plugin Configuration
  
@@ -358,6 +331,4 @@ Steps to create the `monitor_deployment_containers` job are as follows:
  > 
  > Under Guidance of : Mr. [Vimal Daga](https://in.linkedin.com/in/vimaldaga)
  >
- > Writer: [Ritesh Kumar](https://www.linkedin.com/in/riteshsoni10/)
- >
- > DevOps Assembly Lines Task 2
+ > DevOps Assembly Lines Task 3
