@@ -1,0 +1,72 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jenkins-ns
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-svc
+  labels:
+    tier: frontend
+    app: loadbalancer
+  namespace: jenkins-ns
+spec:
+  selector:
+    app: jenkins
+    tier: frontend
+    region: INDIA
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    protocol: TCP
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pvc
+  labels:
+    app: storage
+  namespace: jenkins-ns
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  labels:
+    tier: frontend
+    app: jenkins-deployment
+  namespace: jenkins-ns
+spec:
+  selector:
+    matchLabels:
+      app: jenkins
+      tier: frontend
+      region: INDIA
+  template:
+    metadata:
+      name: jenkins-pod
+      labels:
+        app: jenkins
+        tier: frontend
+        region: INDIA 
+    spec:
+      containers:
+      - name: jenkins-container
+        image: riteshsoni296/jenkins:latest
+        volumeMounts:
+        - name: jenkins-volume
+          mountPath: /var/lib/jenkins
+      volumes:
+      - name: jenkins-volume
+        persistentVolumeClaim:
+          claimName: jenkins-pvc
