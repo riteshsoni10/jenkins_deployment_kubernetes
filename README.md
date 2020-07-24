@@ -79,7 +79,7 @@ We need to configure the docker hub credentials repository where we will be uplo
 2. Click on *Manage Credentials*
 
 <p align="center">
-  <img src="screenshots/docker_manage_credentails.png" width="800" title="Jenkins Manage Credentials">
+  <img src="screenshots/docker_manage_credentials.png" width="800" title="Jenkins Manage Credentials">
   <br>
   <em>Fig 2.: Manage Credentials  </em>
 </p>
@@ -173,7 +173,7 @@ Steps to create the `code_deployment` job are as follows:
    The build trigger is configured to trigger the job when the upstream job `code_checkout` is stable i.e successful.
    
 <p align="center">
-  <img src="screenshots/code_deployment.png" width="800" title="Build trigger">
+  <img src="screenshots/code_deployment_build_triggers.png" width="800" title="Build trigger">
   <br>
   <em>Fig 7.: Deployment Job Build Triggers Configuration  </em>
 </p>
