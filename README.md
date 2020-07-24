@@ -66,7 +66,40 @@ During the initialisation of jenkins server for the first time, the Jenkins serv
 <p align="center">
   <img src="screenshots/jenkins_boot_log.png" width="800" title="Server Startup Diagram">
   <br>
-  <em>Fig 1.: Jeknins Server Startup  </em>
+  <em>Fig 1.: Jenkins Server Startup  </em>
+</p>
+
+
+### Configure DockerHub Credentials
+
+We need to configure the docker hub credentials repository where we will be uploading the latest application image. The following  steps to configure the credentials in JENKINS Server.
+
+1. Click on *Manage Jenkins* in Jenkins Welcome Page
+
+2. Click on *Manage Credentials*
+
+<p align="center">
+  <img src="screenshots/docker_manage_credentails.png" width="800" title="Jenkins Manage Credentials">
+  <br>
+  <em>Fig 2.: Manage Credentials  </em>
+</p>
+
+3. Click on *domains* below global column
+
+<p align="center">
+  <img src="screenshots/docker_add_credentials.png" width="800" title="Add Credentials">
+  <br>
+  <em>Fig 2.: Configure Credentials in Jenkins  </em>
+</p>
+
+4. Configure the Username and Password of Docker Hub Repository
+
+    We will be providing the docker hub repository username and password.
+    
+<p align="center">
+  <img src="screenshots/docker_configure_credentials.png" width="800" title="Configure Credentials">
+  <br>
+  <em>Fig 2.: Add Credentials in Jenkins  </em>
 </p>
 
 
@@ -145,7 +178,17 @@ Steps to create the `code_deployment` job are as follows:
   <em>Fig 7.: Deployment Job Build Triggers Configuration  </em>
 </p>
 
-4. Operations to perform at **Build stage**
+4. **Build Environment**
+
+    The *Use Secret Text or Files* checkbox needs to be enabled, so that we can use docker hub credentials in Build Stage. From *Add Bindings* dropdown, we need to select *Username and Password (seperated)* to add our docker hub credentials. We will be using `docker_user` and `docker_password` variables for username and password respectively.
+    
+<p align="center">
+  <img src="screenshots/code_deployment_build.png" width="800" title="Build Environment">
+  <br>
+  <em>Fig 7.: Build Environment  </em>
+</p>
+
+5. Operations to perform at **Build stage**
 
    From the **Add Build Step** drop-down, `Execute Shell` is selected to run the operations at build stage. In the build stage, the project deployment directory is scanned for HTML and PHP pages with extension .html and .php respectively. If the project directory contains both HTML annd PHP language code, then customised image i.e; `riteshsoni296/apache-php7:latest` will be used to launch the container otherwise the apache web server image will be used to launch the apache web server container for HTML ccode deployment.
    
@@ -154,12 +197,12 @@ Steps to create the `code_deployment` job are as follows:
   The shell script that is to copied in the Build Stage is present in the respository at location `scripts/code_deployment_build_stage.sh`
    
 <p align="center">
-  <img src="screenshots/code_deployment_build_stage.png" width="800" title="Build Stage">
+  <img src="screenshots/code_deployment_build_stages.png" width="800" title="Build Stage">
   <br>
   <em>Fig 8.: Deployment Job Build Stage Configuration  </em>
 </p>
 
-5. Apply and Save 
+6. Apply and Save 
 
 
 ### Job3 and Job4 : Test the code and Send alerts to developer
