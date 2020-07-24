@@ -345,7 +345,7 @@ Steps to create the `code_test` job are as follows:
 1. Click on **+** symbol in the bar just beside ALL
 
 <p align="center">
-  <img src="screenshots/build_pipeline_plugin_select.png" width="800" title="Build Pipeline ">
+  <img src="screenshots/build_pipeline_select.png" width="800" title="Build Pipeline ">
   <br>
   <em>Fig 17.: Create a New View </em>
 </p>  
@@ -375,7 +375,7 @@ Steps to create the `code_test` job are as follows:
    We can start, restart jobs from Build Pipeline View.
    
 <p align="center">
-  <img src="screenshots/build_pipeline_success.png" width="800" title="Build Pipeline ">
+  <img src="screenshots/build_pipeline_view.png" width="800" title="Build Pipeline ">
   <br>
   <em>Fig 20.: Build Pipeline  </em>
 </p>
