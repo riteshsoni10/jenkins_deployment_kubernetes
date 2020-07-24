@@ -89,7 +89,7 @@ Steps to create the `code_checkout` job are as follows:
 3. Configure *GitHub Project URL*
 
 <p align="center">
-  <img src="screenshots/code_checkout_project.png" width="800" title="Git Hub Project URL">
+  <img src="screenshots/code_checkout_demo_project.png" width="800" title="Git Hub Project URL">
   <br>
   <em>Fig 3.: GitHub Project URL </em>
 </p>
@@ -99,7 +99,7 @@ Steps to create the `code_checkout` job are as follows:
   We are only tracking the master branch, since the code is pushed finally in master branch.
 
 <p align="center">
-  <img src="screenshots/code_checkout_git_repository.png" width="800" title="SCM Configure">
+  <img src="screenshots/code_checkout_demo_git_repository.png" width="800" title="SCM Configure">
   <br>
   <em>Fig 4.: Source Code Management Configuration  </em>
 </p>
