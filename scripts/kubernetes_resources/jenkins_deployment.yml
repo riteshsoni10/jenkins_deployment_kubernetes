@@ -64,15 +64,15 @@ spec:
       - name: jenkins-container
         image: riteshsoni296/jenkins_kubectl:v2
         env:
-          - name: KUBERNETES_CLUSTER
+          - name: "KUBERNETES_CLUSTER_IP"
             value: "192.168.99.106"
-          - name: CA_CERTIFICATE
+          - name: "CA_CERTIFICATE"
             value: "ca.crt"
-          - name: CLIENT_CERTIFICATE
+          - name: "CLIENT_CERTIFICATE"
             value: "client.crt"
-          - name: CLIENT_KEY
+          - name: "CLIENT_KEY"
             value: "client.key"
-          - name: JENKINS_HOME
+          - name: "JENKINS_HOME"
             value: "/var/lib/jenkins"
         volumeMounts:
         - name: jenkins-volume
