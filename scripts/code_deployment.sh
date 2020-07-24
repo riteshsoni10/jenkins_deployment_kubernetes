@@ -46,7 +46,7 @@ then
 	container_name=`kubectl get deploy $DEPLOYMENT_NAME -o jsonpath="{.spec.template.spec.containers[*].name}"`
 
 	#Rollout of new application
-	kubectl set image deployment/$DEPLOYMENT_NAME $container_name=$DOCKER_REPOSITORY/$DEPLOYMENT_NAME
+	kubectl set image deployment/$DEPLOYMENT_NAME $container_name=$DOCKER_REPOSITORY/$DEPLOYMENT_NAME:v${BUILD_NUMBER}
 	
 	# Wait for the rollout to be complete
 	if ! kubectl rollout status deploy/$DEPLOYMENT_NAME | grep success
@@ -58,7 +58,7 @@ then
 #If application is not yet deployed
 else
 	# Create new deployment for the application
-	if kubectl create deployment $DEPLOYMENT_NAME --image $DOCKER_REPOSITORY/$DEPLOYMENT_NAME
+	if kubectl create deployment $DEPLOYMENT_NAME --image $DOCKER_REPOSITORY/$DEPLOYMENT_NAME:v${BUILD_NUMBER}
 	then
 		#Wait till the pods are in running state
 		while kubectl get pods -l app=$DEPLOYMENT_NAME -o jsonpath="{.items[*].status.containerStatuses[*].state.running}" 
