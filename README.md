@@ -150,7 +150,7 @@ Steps to create the `code_checkout` job are as follows:
 
 6. Steps to perform at **Build Stage**
 
-   From the **Add Build Step** drop-down, `Execute Shell` is selected to run the operations at build stage. The source code is copied into the project deployment directory i.e */opt/code*. The script is present in scripts directory in this repository with name 'code_checkout_build_stage.sh'. The contents of script needs to be copied in the build stage of the job.
+   From the **Add Build Step** drop-down, `Execute Shell` is selected to run the operations at build stage. The source code is copied into the project deployment directory i.e */opt/code*. The script is present in scripts directory in this repository with name 'code_checkout.sh'. The contents of script needs to be copied in the build stage of the job.
  
  <p align="center">
   <img src="screenshots/code_checkout_directory.png" width="800" title="Build Stage">
@@ -190,11 +190,11 @@ Steps to create the `code_deployment` job are as follows:
 
 5. Operations to perform at **Build stage**
 
-   From the **Add Build Step** drop-down, `Execute Shell` is selected to run the operations at build stage. In the build stage, the project deployment directory is scanned for HTML and PHP pages with extension .html and .php respectively. If the project directory contains both HTML annd PHP language code, then customised image i.e; `riteshsoni296/apache-php7:latest` will be used to launch the container otherwise the apache web server image will be used to launch the apache web server container for HTML ccode deployment.
+   From the **Add Build Step** drop-down, `Execute Shell` is selected to run the operations at build stage. In the build stage, the project deployment directory is scanned for HTML and PHP pages with extension .html and .php respectively. If the project directory contains both HTML annd PHP language code, then customised image i.e; `riteshsoni296/apache-php7:latest` will be used to launch the container otherwise the apache web server image will be used to launch the apache web server container for HTML code deployment.
    
-   The customised php along with apache server contains only selected packages i.e;php7, php7-fpm, php7-opcache, php7-gd, php7-mysqli, php7-zlib, php7-curl. The image can be extended as per requirements using Dockerfile. The `Dockerfile` for riteshsoni296/apache-php7:latest image is stored in the repository for reference.
+   The customised php along with apache server docker image contains only selected packages i.e;php7, php7-fpm, php7-opcache, php7-gd, php7-mysqli, php7-zlib, php7-curl. The image can be extended as per requirements using Dockerfile. A new docker image is created everytime the job is executed to perform a rollout deployment in kubernetes of application, if exists or to create a new deployment with updated image code.
    
-  The shell script that is to copied in the Build Stage is present in the respository at location `scripts/code_deployment_build_stage.sh`
+  The shell script that is to copied in the Build Stage is present in the respository at location `scripts/code_deployment.sh`
    
 <p align="center">
   <img src="screenshots/code_deployment_build_stages.png" width="800" title="Build Stage">
