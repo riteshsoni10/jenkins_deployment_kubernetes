@@ -197,7 +197,7 @@ Steps to create the `code_deployment` job are as follows:
   The shell script that is to copied in the Build Stage is present in the respository at location `scripts/code_deployment.sh`
    
 <p align="center">
-  <img src="screenshots/code_deployment_build_stages.png" width="800" title="Build Stage">
+  <img src="screenshots/code_deployment_build_step.png" width="800" title="Build Stage">
   <br>
   <em>Fig 8.: Deployment Job Build Stage Configuration  </em>
 </p>
@@ -207,7 +207,7 @@ Steps to create the `code_deployment` job are as follows:
     The application name that is rolloed out or created will be passed to the testing job for further process i.e testing of application
 
 <p align="center">
-  <img src="screenshots/code_deployment_post_build.png" width="800" title="Post Build Stage">
+  <img src="screenshots/code_deployment_post_build_actions.png" width="800" title="Post Build Stage">
   <br>
   <em>Fig 8.: Post Build Stage Configuration  </em>
 </p>  
