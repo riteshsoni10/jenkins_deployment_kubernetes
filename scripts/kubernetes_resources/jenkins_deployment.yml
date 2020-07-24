@@ -65,7 +65,7 @@ spec:
         image: riteshsoni296/jenkins_kubectl:v2
         env:
           - name: KUBERNETES_CLUSTER
-            value: 192.168.99.107
+            value: "192.168.99.106"
           - name: CA_CERTIFICATE
             value: "ca.crt"
           - name: CLIENT_CERTIFICATE
