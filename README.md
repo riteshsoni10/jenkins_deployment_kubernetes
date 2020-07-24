@@ -202,6 +202,16 @@ Steps to create the `code_deployment` job are as follows:
   <em>Fig 8.: Deployment Job Build Stage Configuration  </em>
 </p>
 
+6. Configure **Post Build Actions**
+
+    The application name that is rolloed out or created will be passed to the testing job for further process i.e testing of application
+
+<p align="center">
+  <img src="screenshots/code_deployment_post_build.png" width="800" title="Post Build Stage">
+  <br>
+  <em>Fig 8.: Post Build Stage Configuration  </em>
+</p>  
+    
 6. Apply and Save 
 
 
@@ -213,16 +223,17 @@ Steps to create the `code_test` job are as follows:
 
 2. Configure *Job Name*
 
-3. Configure **Build Triggers**
+3. Configure Parameter Name
 
-   The build trigger is configured to trigger the job when the upstream job `code_deployment` is stable i.e successful.
-
+    Enable the checkbox `This project is parameterized` option. Select the *String parameter* from *Add parameter* dropdown. Then the parameter name i.e *APPLICATION_NAME* and its default value that is to be passed in case no value is passed during build Execution. We are recieving the parameter from the upstream Job *code_deployment* which is expected to contain the application name runnning in kubernetes  cluster.
+    
 <p align="center">
-  <img src="screenshots/code_test_build_triggers.png" width="800" title="Test Build trigger">
+  <img src="screenshots/code_test_parameter.png" width="800" title="Test Parameter Stage ">
   <br>
-  <em>Fig 9.: Test Job Build Triggers Configuration  </em>
+  <em>Fig 10.: Parameter Configuration  </em>
 </p>
-   
+    
+
 4.  Operations to perform at **Build stage**
 
     From the **Add Build Step** drop-down, `Execute Shell` is selected to run the operations at build stage. In case of Web container is running, then the private IP of container is fetched and the code reachability is verified using curl command. If the curl command output gives numeric value other than 200, the job is considered as failed by passing exit status 1.
@@ -236,12 +247,12 @@ Steps to create the `code_test` job are as follows:
     *-w,* used to write output of the curl command
     *http_code,* parameter prints out the return HTTP status code
     *-o /dev/null,* used to dump the output of the curl command.
-    *10.10.15.12,* IP Address of web container
+    *10.10.15.12,* IP Address of Minikube master node 
     
-    The script is present for reference in repository at location `scripts/code_test_build_stage.sh`.
+    The script is present for reference in repository at location `scripts/code_test.sh`.
     
 <p align="center">
-  <img src="screenshots/code_test_build_stage.png" width="800" title="Test Build Stage ">
+  <img src="screenshots/code_test_stage.png" width="800" title="Test Build Stage ">
   <br>
   <em>Fig 10.: Test Job Build Stage Configuration  </em>
 </p>
@@ -254,7 +265,7 @@ Steps to create the `code_test` job are as follows:
    We need to click on `Add Post Build Action` drop-down and select **E-Mail Notification**.
    
 <p align="center">
-  <img src="screenshots/code_test_post_build_actions.png" width="800" title="Post Build Actions ">
+  <img src="screenshots/code_test_post_build.png" width="800" title="Post Build Actions ">
   <br>
   <em>Fig 11.: Test Job Post Build Actions Configuration  </em>
 </p>
@@ -373,5 +384,3 @@ Steps to create the `code_test` job are as follows:
  > Source: LinuxWorld Informatics. Private Ltd.
  > 
  > Under Guidance of : Mr. [Vimal Daga](https://in.linkedin.com/in/vimaldaga)
- >
- > DevOps Assembly Lines Task 3
