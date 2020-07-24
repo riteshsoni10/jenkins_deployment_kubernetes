@@ -38,18 +38,23 @@ fi
 #Push the image to the docker repository
 docker push $DOCKER_REPOSITORY/$DEPLOYMENT_NAME:v${BUILD_NUMBER}
 
+#Create Custom Application Namespace
+if ! kubectl get ns $DEPLOYMENT_NAME >/dev/null
+then
+	kubectl create ns $DEPLOYMENT_NAME
+fi
 
 # Check if application already deployed
-if kubectl get deployment $DEPLOYMENT_NAME > /dev/null
+if kubectl get deployment $DEPLOYMENT_NAME -n $DEPLOYMENT_NAME > /dev/null
 then
 	#Get all running container names from deployment configuration 
-	container_name=`kubectl get deploy $DEPLOYMENT_NAME -o jsonpath="{.spec.template.spec.containers[*].name}"`
+	container_name=`kubectl get deploy $DEPLOYMENT_NAME -n $DEPLOYMENT_NAME -o jsonpath="{.spec.template.spec.containers[*].name}"`
 
 	#Rollout of new application
-	kubectl set image deployment/$DEPLOYMENT_NAME $container_name=$DOCKER_REPOSITORY/$DEPLOYMENT_NAME:v${BUILD_NUMBER}
+	kubectl set image deployment/$DEPLOYMENT_NAME -n $DEPLOYMENT_NAME $container_name=$DOCKER_REPOSITORY/$DEPLOYMENT_NAME:v${BUILD_NUMBER}
 	
 	# Wait for the rollout to be complete
-	if ! kubectl rollout status deploy/$DEPLOYMENT_NAME | grep success
+	if ! kubectl rollout status deploy/$DEPLOYMENT_NAME -n $DEPLOYMENT_NAME| grep success
 	then
 		echo "Rollout of new Application Failed"
 		exit 1
@@ -58,16 +63,16 @@ then
 #If application is not yet deployed
 else
 	# Create new deployment for the application
-	if kubectl create deployment $DEPLOYMENT_NAME --image $DOCKER_REPOSITORY/$DEPLOYMENT_NAME:v${BUILD_NUMBER}
+	if kubectl create deployment $DEPLOYMENT_NAME -n $DEPLOYMENT_NAME --image $DOCKER_REPOSITORY/$DEPLOYMENT_NAME:v${BUILD_NUMBER}
 	then
 		#Wait till the pods are in running state
-		while kubectl get pods -l app=$DEPLOYMENT_NAME -o jsonpath="{.items[*].status.containerStatuses[*].state.running}" 
+		while kubectl get pods -n $DEPLOYMENT_NAME -l app=$DEPLOYMENT_NAME -o jsonpath="{.items[*].status.containerStatuses[*].state.running}" 
 		do
 			sleep 5
 		done
 
 		#Expose the application using service
-		kubectl expose deployment/$DEPLOYMENT_NAME --port 80 --type=$SERVICE_EXPOSE_TYPE
+		kubectl expose deployment/$DEPLOYMENT_NAME -n $DEPLOYMENT_NAME --port 80 --type=$SERVICE_EXPOSE_TYPE
 	else
 		echo "Failed to create a deployment"
 		exit 1
