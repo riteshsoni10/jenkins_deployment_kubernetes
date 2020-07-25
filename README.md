@@ -408,7 +408,7 @@ Steps to create the `code_test` job are as follows:
    We can start, restart jobs from Build Pipeline View.
    
 <p align="center">
-  <img src="screenshots/build_pipeline_success.png" width="800" title="Build Pipeline ">
+  <img src="screenshots/build_pipeline_successes.png" width="800" title="Build Pipeline ">
   <br>
   <em>Fig 28.: Build Pipeline  </em>
 </p>
