@@ -59,6 +59,14 @@ The configuration file is present in the repository at `scripts` directory.
 kubectl create -f jenkins_deployment.yml
 ```
 
+The kubernetes resources created for jenkins server pods are as shown in below figure
+
+<p align="center">
+  <img src="screenshots/jenkins_resources.png" width="800" title="Kubernetes Jenkins Resources">
+  <br>
+  <em>Fig 2.: Jenkins Kubernetes Resources  </em>
+</p>
+
 The jenkins container data directory `/var/lib/jenkins` is mounted using PVC for data persistency during unavoidable circumstances.
 
 During the initialisation of jenkins server for the first time, the Jenkins server proides `secret key` in the console logs for the first time login.
@@ -66,7 +74,13 @@ During the initialisation of jenkins server for the first time, the Jenkins serv
 <p align="center">
   <img src="screenshots/jenkins_boot_log.png" width="800" title="Server Startup Diagram">
   <br>
-  <em>Fig 1.: Jenkins Server Startup  </em>
+  <em>Fig 3.: Jenkins Server Startup  </em>
+</p>
+
+<p align="center">
+  <img src="screenshots/jenkins_startup_login_page.png" width="800" title="Jenkins Initial Login Page">
+  <br>
+  <em>Fig 4.: Jenkins Initial Login Page </em>
 </p>
 
 
@@ -81,7 +95,7 @@ We need to configure the docker hub credentials repository where we will be uplo
 <p align="center">
   <img src="screenshots/docker_manage_credentials.png" width="800" title="Jenkins Manage Credentials">
   <br>
-  <em>Fig 2.: Manage Credentials  </em>
+  <em>Fig 5.: Manage Credentials  </em>
 </p>
 
 3. Click on *domains* below global column
@@ -89,7 +103,7 @@ We need to configure the docker hub credentials repository where we will be uplo
 <p align="center">
   <img src="screenshots/docker_add_credentials.png" width="800" title="Add Credentials">
   <br>
-  <em>Fig 2.: Configure Credentials in Jenkins  </em>
+  <em>Fig 6.: Configure Credentials in Jenkins  </em>
 </p>
 
 4. Configure the Username and Password of Docker Hub Repository
@@ -99,7 +113,7 @@ We need to configure the docker hub credentials repository where we will be uplo
 <p align="center">
   <img src="screenshots/docker_configure_credentials.png" width="800" title="Configure Credentials">
   <br>
-  <em>Fig 2.: Add Credentials in Jenkins  </em>
+  <em>Fig 7.: Add Credentials in Jenkins  </em>
 </p>
 
 
@@ -116,7 +130,7 @@ Steps to create the `code_checkout` job are as follows:
 <p align="center">
   <img src="screenshots/code_checkout_first.png" width="800" title="Job Name Configure">
   <br>
-  <em>Fig 2.: Job Name Configuration  </em>
+  <em>Fig 8.: Job Name Configuration  </em>
 </p>
 
 3. Configure *GitHub Project URL*
@@ -124,7 +138,7 @@ Steps to create the `code_checkout` job are as follows:
 <p align="center">
   <img src="screenshots/code_checkout_demo_project.png" width="800" title="Git Hub Project URL">
   <br>
-  <em>Fig 3.: GitHub Project URL </em>
+  <em>Fig 9.: GitHub Project URL </em>
 </p>
 
 4. Configure **Source Code Management**
@@ -134,7 +148,7 @@ Steps to create the `code_checkout` job are as follows:
 <p align="center">
   <img src="screenshots/code_checkout_demo_git_repository.png" width="800" title="SCM Configure">
   <br>
-  <em>Fig 4.: Source Code Management Configuration  </em>
+  <em>Fig 10.: Source Code Management Configuration  </em>
 </p>
 
 5. Configure **Build Triggers**
@@ -144,7 +158,7 @@ Steps to create the `code_checkout` job are as follows:
 <p align="center">
   <img src="screenshots/code_checkout_github_polling.png" width="800" title="Build Stage">
   <br>
-  <em>Fig 5.: Poll SCM </em>
+  <em>Fig 11.: Poll SCM </em>
 </p>
 
 
@@ -155,7 +169,7 @@ Steps to create the `code_checkout` job are as follows:
  <p align="center">
   <img src="screenshots/code_checkout_directory.png" width="800" title="Build Stage">
   <br>
-  <em>Fig 6.: Code Checkout Build Stage  </em>
+  <em>Fig 12.: Code Checkout Build Stage  </em>
 </p>
 
 7. Click on Apply and Save
@@ -175,7 +189,7 @@ Steps to create the `code_deployment` job are as follows:
 <p align="center">
   <img src="screenshots/code_deployment_build_triggers.png" width="800" title="Build trigger">
   <br>
-  <em>Fig 7.: Deployment Job Build Triggers Configuration  </em>
+  <em>Fig 13.: Deployment Job Build Triggers Configuration  </em>
 </p>
 
 4. **Build Environment**
@@ -185,7 +199,7 @@ Steps to create the `code_deployment` job are as follows:
 <p align="center">
   <img src="screenshots/code_deployment_build.png" width="800" title="Build Environment">
   <br>
-  <em>Fig 7.: Build Environment  </em>
+  <em>Fig 14.: Build Environment  </em>
 </p>
 
 5. Operations to perform at **Build stage**
@@ -199,7 +213,7 @@ Steps to create the `code_deployment` job are as follows:
 <p align="center">
   <img src="screenshots/code_deployment_build_step.png" width="800" title="Build Stage">
   <br>
-  <em>Fig 8.: Deployment Job Build Stage Configuration  </em>
+  <em>Fig 15.: Deployment Job Build Stage Configuration  </em>
 </p>
 
 6. Configure **Post Build Actions**
@@ -209,11 +223,20 @@ Steps to create the `code_deployment` job are as follows:
 <p align="center">
   <img src="screenshots/code_deployment_post_build_actions.png" width="800" title="Post Build Stage">
   <br>
-  <em>Fig 8.: Post Build Stage Configuration  </em>
+  <em>Fig 16.: Post Build Stage Configuration  </em>
 </p>  
     
 6. Apply and Save 
 
+
+Application Server Kubernetes resources launched are as shown in figure :
+
+<p align="center">
+  <img src="screenshots/application_resources.png" width="800" title="Application Kubernetes Resources">
+  <br>
+  <em>Fig 17.: Application Resources  </em>
+</p>  
+    
 
 ### Job3 and Job4 : Test the code and Send alerts to developer
 
@@ -230,7 +253,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/code_test_parameter.png" width="800" title="Test Parameter Stage ">
   <br>
-  <em>Fig 10.: Parameter Configuration  </em>
+  <em>Fig 18.: Parameter Configuration  </em>
 </p>
     
 
@@ -254,7 +277,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/code_test_stage.png" width="800" title="Test Build Stage ">
   <br>
-  <em>Fig 10.: Test Job Build Stage Configuration  </em>
+  <em>Fig 19.: Test Job Build Stage Configuration  </em>
 </p>
     
     
@@ -267,7 +290,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/code_test_post_build.png" width="800" title="Post Build Actions ">
   <br>
-  <em>Fig 11.: Test Job Post Build Actions Configuration  </em>
+  <em>Fig 20.: Test Job Post Build Actions Configuration  </em>
 </p>
 
    Sending Alerts only for Unstable builds or the broken builds
@@ -275,7 +298,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/code_test_email.png" width="800" title="Post Build Email ">
   <br>
-  <em>Fig 12.: Test Job Post Build Email Configuration  </em>
+  <em>Fig 21.: Test Job Post Build Email Configuration  </em>
 </p>
     
 6. Click on Apply and Save
@@ -289,7 +312,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/smtp_configuration.png" width="800" title="SMTP Configuration ">
   <br>
-  <em>Fig 13.: SMTP Configuration  </em>
+  <em>Fig 22.: SMTP Configuration  </em>
 </p>
 
    - Click on Advanced in **E-Mail  Notification**
@@ -309,7 +332,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/email_configuration.png" width="800" title="SMTP Configuration ">
   <br>
-  <em>Fig 14.: SMTP Server Configuration  </em>
+  <em>Fig 23.: SMTP Server Configuration  </em>
 </p>   
 
    If using gmail SMTP Server, then  **Less Secure App Access** needs to be turned on from the sender email id.
@@ -347,7 +370,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/build_pipeline_select.png" width="800" title="Build Pipeline ">
   <br>
-  <em>Fig 17.: Create a New View </em>
+  <em>Fig 24.: Create a New View </em>
 </p>  
 
 2. Configure  Name for the view
@@ -357,7 +380,7 @@ Steps to create the `code_test` job are as follows:
  <p align="center">
   <img src="screenshots/build_pipeline_view_name.png" width="800" title="Build Pipeline ">
   <br>
-  <em>Fig 18.: Build Pipeline View </em>
+  <em>Fig 25.: Build Pipeline View </em>
 </p>
 
 3. Configure **Build Pipeline** View
@@ -367,7 +390,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/build_pipeline_configure.png" width="800" title="Build Pipeline ">
   <br>
-  <em>Fig 19.: Build Pipeline Configure </em>
+  <em>Fig 26.: Build Pipeline Configure </em>
 </p>
 
 4. Build Pipeline View
@@ -377,7 +400,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/build_pipeline_view.png" width="800" title="Build Pipeline ">
   <br>
-  <em>Fig 20.: Build Pipeline  </em>
+  <em>Fig 27.: Build Pipeline  </em>
 </p>
    
    
