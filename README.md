@@ -14,12 +14,12 @@ The project deploys the code as soon as the code is pushed to the repository usi
 
 ### Jenkins Image using Dockerfile
 
-The Dockerfile is created from the `alpine:latest` linux image minimising the storage required to run the jenkins container. The image contains the kubectl binary to launch the kubernetes resources. The files for authentication is copied in the image. You can create the custom image using the already provided image `riteshsoni296/jenkins_kubectl:v1` and paste the kubernetes authentication files i.e; client.crt,client.key and ca.crt.
+The Dockerfile is created from the `alpine:latest` linux image minimising the storage required to run the jenkins container. The image contains the kubectl binary to launch the kubernetes resources. The files for authentication is copied in the image. You can create the custom image using the already provided image `riteshsoni296/jenkins_kubectl:v2` and paste the kubernetes authentication files i.e; client.crt,client.key and ca.crt. The kubectl *config.template* file is present in the scripts directory in the repository
 
 The dockerfile extract to be as follows :
 
 ```
-FROM riteshsoni296/jenkins_kubectl:v1
+FROM riteshsoni296/jenkins_kubectl:v2
 COPY client.crt client.key ca.crt config.template /root/.kube/
 EXPOSE 8080
 CMD /bin/sh -c "envsubst \"`env | awk -F = '{printf \" \\\\$%s\", \$1}'`\" < /root/.kube/config.template \
