@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 LABEL MAINTAINER="Ritesh Kumar"
-RUN apk --no-cache --update add jenkins git curl gettext -X http://dl-cdn.alpinelinux.org/alpine/edge/community && \
+RUN apk --no-cache --update add jenkins git curl docker gettext -X http://dl-cdn.alpinelinux.org/alpine/edge/community && \
     curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl &&\
     chmod +x kubectl && \
     mv kubectl /usr/bin && \
