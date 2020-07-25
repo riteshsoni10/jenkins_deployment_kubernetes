@@ -25,6 +25,10 @@ elif [ $(find . -type f  -name "*.html" | wc -l ) -gt 0 ]; then
 	DEPLOYMENT_NAME="web-application"
 fi
 
+
+## Writing Deployment_name in file for POST-build Actions
+echo APPLICATION_NAME="$DEPLOYMENT_NAME" >properties.txt
+
 # Pushing Image to repository
 # Build new image  
 docker build . -t $DOCKER_REPOSITORY/$DEPLOYMENT_NAME:v${BUILD_NUMBER} --no-cache
