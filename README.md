@@ -1,5 +1,15 @@
 # Automated Deployment and Testing on Kuberenetes  Cluster
 
+The project deploys the code as soon as the code is pushed to the repository using POLL SCM in `code_checkout` Jenkins Job. Here, we are using POLL SCM due to the fact that the jenkins is hosted in private network and github is present in public network. All the resources in the project are launched over kubernetes cluster. The Configuration of kubernetes cluster can be multi-node cluster or single node cluster i.e minikube. The code is error-free when executed on minikuube cluster.
+
+**Project Infra Diagram**
+<p align="center">
+  <img src="screenshots/infra_flow.png" width="800" title="Project Infra Flow">
+  <br>
+  <em>Fig 1.: Project Flow  </em>
+</p>
+
+
 ## Tasks
 
 ### Jenkins Image using Dockerfile
@@ -340,7 +350,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/less_secure_app_access.png" width="650" title="Additional Configuration ">
   <br>
-  <em>Fig 15.: Gmail Configuration  </em>
+  <em>Fig 24.: Gmail Configuration  </em>
 </p>  
    
    - Click on Apply and Save
@@ -370,7 +380,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/build_pipeline_select.png" width="800" title="Build Pipeline ">
   <br>
-  <em>Fig 24.: Create a New View </em>
+  <em>Fig 25.: Create a New View </em>
 </p>  
 
 2. Configure  Name for the view
@@ -380,7 +390,7 @@ Steps to create the `code_test` job are as follows:
  <p align="center">
   <img src="screenshots/build_pipeline_view_name.png" width="800" title="Build Pipeline ">
   <br>
-  <em>Fig 25.: Build Pipeline View </em>
+  <em>Fig 26.: Build Pipeline View </em>
 </p>
 
 3. Configure **Build Pipeline** View
@@ -390,7 +400,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/build_pipeline_configure.png" width="800" title="Build Pipeline ">
   <br>
-  <em>Fig 26.: Build Pipeline Configure </em>
+  <em>Fig 27.: Build Pipeline Configure </em>
 </p>
 
 4. Build Pipeline View
@@ -400,7 +410,7 @@ Steps to create the `code_test` job are as follows:
 <p align="center">
   <img src="screenshots/build_pipeline_view.png" width="800" title="Build Pipeline ">
   <br>
-  <em>Fig 27.: Build Pipeline  </em>
+  <em>Fig 28.: Build Pipeline  </em>
 </p>
    
    
