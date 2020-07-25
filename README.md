@@ -1,6 +1,6 @@
 # Automated Deployment and Testing on Kuberenetes  Cluster
 
-The project deploys the code as soon as the code is pushed to the repository using POLL SCM in `code_checkout` Jenkins Job. Here, we are using POLL SCM due to the fact that the jenkins is hosted in private network and github is present in public network. All the resources in the project are launched over kubernetes cluster. The Configuration of kubernetes cluster can be multi-node cluster or single node cluster i.e minikube. The code is error-free when executed on minikuube cluster.
+The project deploys the code as soon as the code is pushed to the repository using POLL SCM in `code_checkout` Jenkins Job. Here, we are using POLL SCM due to the fact that the jenkins is hosted in private network and github is present in public network. All the resources in the project are launched over kubernetes cluster. The Configuration of kubernetes cluster can be multi-node cluster or single node cluster i.e minikube. 
 
 **Project Infra Diagram**
 <p align="center">
