@@ -5,5 +5,5 @@ else
 	rm -rf /opt/code/*
 	echo "Code directoty already present"
 fi
-cp -ap $WORKSPACE/* /opt/code/ 
+cp -ap $WORKSPACE/. /opt/code/ 
 
