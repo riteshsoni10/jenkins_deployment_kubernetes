@@ -5,7 +5,8 @@ RUN apk --no-cache --update add jenkins git curl docker gettext -X http://dl-cdn
     curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl &&\
     chmod +x kubectl && \
     mv kubectl /usr/bin && \
-    mkdir /root/.kube
+    mkdir /root/.kube && \
+    apk del curl
 
 ARG http_port=8080
 
